@@ -1,45 +1,41 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import style from './style.module.css';
 
-export class Searchbar extends Component {
-  state = {
-    queryPictures: '',
+export const Searchbar = ({ onSubmit }) => {
+  const [queryPictures, setQueryPictures] = useState('');
+
+  const handleQueryChange = event => {
+    setQueryPictures(event.currentTarget.value.toLowerCase());
   };
 
-  handleQueryChange = event => {
-    this.setState({ queryPictures: event.currentTarget.value.toLowerCase() });
-  };
-
-  handleQuerySubmit = event => {
+  const handleQuerySubmit = event => {
     event.preventDefault();
-    if (this.state.queryPictures.trim() === '') {
+    if (queryPictures.trim() === '') {
       alert('Enter the query');
       return;
     }
-    this.props.onSubmit(this.state.queryPictures);
-    this.setState({ queryPictures: '' });
+    onSubmit(queryPictures);
+    setQueryPictures('');
   };
 
-  render() {
-    return (
-      <header className={style.searchbar}>
-        <form className={style.form} onSubmit={this.handleQuerySubmit}>
-          <button type="submit" className={style.searchbutton}>
-            <span className={style.textbutton}></span>
-          </button>
+  return (
+    <header className={style.searchbar}>
+      <form className={style.form} onSubmit={handleQuerySubmit}>
+        <button type="submit" className={style.searchbutton}>
+          <span className={style.textbutton}></span>
+        </button>
 
-          <input
-            className={style.input}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            name="inputValue"
-            value={this.state.queryPictures}
-            onChange={this.handleQueryChange}
-          />
-        </form>
-      </header>
-    );
-  }
-}
+        <input
+          className={style.input}
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          name="inputValue"
+          value={queryPictures}
+          onChange={handleQueryChange}
+        />
+      </form>
+    </header>
+  );
+};
