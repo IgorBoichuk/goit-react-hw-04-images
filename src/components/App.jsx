@@ -8,7 +8,7 @@ import axios from 'axios';
 import { Modal } from './modal/Modal';
 
 export const App = () => {
-  const [query, setQuery] = useState('');
+  const [queryd, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [imgStore, setImgStore] = useState([]);
   const [page, setPage] = useState(1);
@@ -22,7 +22,8 @@ export const App = () => {
   const scroll = Scroll.animateScroll;
 
   const myAPI_KEY = '33589434-498505a5cafca5b4759d2d286';
-  const getImageApi = query => {
+  const getImageApi = (query = { queryd }) => {
+    console.log(query);
     axios
       .get(
         `https://pixabay.com/api/?q=${query}&page=${page}&key=${myAPI_KEY}&image_type=photo&orientation=horizontal&per_page=${perPage}`
@@ -52,7 +53,7 @@ export const App = () => {
     if (loading) {
       getImageApi();
     }
-  }, []);
+  });
 
   const onSubmitForm = event => {
     setQuery(event);
@@ -61,6 +62,8 @@ export const App = () => {
     setTypeRequest('search');
     getImageApi(event);
   };
+
+  console.log(page);
 
   const onLoadMoreHandler = () => {
     setLoading(true);
@@ -172,14 +175,14 @@ export const App = () => {
 //     this.getImageApi(query);
 //   };
 
-//   onLoadMoreHandler = () => {
-//     this.setState({
-//       ...this.state,
-//       loading: true,
-//       page: this.state.page + 1,
-//       typeRequest: 'loadMore',
-//     });
-//   };
+// onLoadMoreHandler = () => {
+//   this.setState({
+//     ...this.state,
+//     loading: true,
+//     page: this.state.page + 1,
+//     typeRequest: 'loadMore',
+//   });
+// };
 
 //   onPictureClick = img => {
 //     this.setState({
@@ -187,7 +190,7 @@ export const App = () => {
 //       modalOpen: 'open',
 //       largeImg: img.target.src,
 //     });
-//   };
+// };
 //   onHandleCloseModal = e => {
 //     if (this.state.modalOpen === 'open') {
 //       this.setState({
