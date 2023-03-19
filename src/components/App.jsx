@@ -52,14 +52,14 @@ export const App = () => {
     if (loading) {
       getImageApi();
     }
-  });
+  }, [loading]);
 
   const onSubmitForm = event => {
     setQuery(event);
     setPage(1);
     setLoading(true);
     setTypeRequest('search');
-    getImageApi(event);
+    // getImageApi(event);
   };
 
   const onLoadMoreHandler = () => {
