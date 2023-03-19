@@ -8,7 +8,7 @@ import axios from 'axios';
 import { Modal } from './modal/Modal';
 
 export const App = () => {
-  const [queryd, setQuery] = useState('');
+  const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [imgStore, setImgStore] = useState([]);
   const [page, setPage] = useState(1);
@@ -22,11 +22,10 @@ export const App = () => {
   const scroll = Scroll.animateScroll;
 
   const myAPI_KEY = '33589434-498505a5cafca5b4759d2d286';
-  const getImageApi = (query = { queryd }) => {
-    console.log(query);
+  const getImageApi = (queryStr = query) => {
     axios
       .get(
-        `https://pixabay.com/api/?q=${query}&page=${page}&key=${myAPI_KEY}&image_type=photo&orientation=horizontal&per_page=${perPage}`
+        `https://pixabay.com/api/?q=${queryStr}&page=${page}&key=${myAPI_KEY}&image_type=photo&orientation=horizontal&per_page=${perPage}`
       )
 
       .then(response => {
@@ -62,8 +61,6 @@ export const App = () => {
     setTypeRequest('search');
     getImageApi(event);
   };
-
-  console.log(page);
 
   const onLoadMoreHandler = () => {
     setLoading(true);
