@@ -7,6 +7,8 @@ import { Loader } from './loader/Loader';
 import axios from 'axios';
 import { Modal } from './modal/Modal';
 
+const myAPI_KEY = '33589434-498505a5cafca5b4759d2d286';
+
 export const App = () => {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,7 +23,6 @@ export const App = () => {
 
   const scroll = Scroll.animateScroll;
 
-  const myAPI_KEY = '33589434-498505a5cafca5b4759d2d286';
   const getImageApi = (queryStr = query) => {
     axios
       .get(
@@ -80,12 +81,6 @@ export const App = () => {
     }
   };
 
-  const onEscCloseModal = e => {
-    if (e.key === 'Escape') {
-      onHandleCloseModal();
-    }
-  };
-
   return (
     <div onClick={onHandleCloseModal}>
       <Searchbar onSubmit={onSubmitForm} />
@@ -97,7 +92,7 @@ export const App = () => {
       {error || (isQuery === 'badQuary' && <h1>Is bad query</h1>)}
 
       {modalOpen === 'open' && (
-        <Modal largeImg={largeImg} onEscCloseModal={onEscCloseModal} />
+        <Modal largeImg={largeImg} onHandleCloseModal={onHandleCloseModal} />
       )}
 
       <LoadMoreBtn

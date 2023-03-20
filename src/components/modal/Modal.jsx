@@ -5,6 +5,12 @@ import style from './style.module.css';
 export const Modal = props => {
   const textInput = React.useRef();
 
+  const onEscCloseModal = e => {
+    if (e.key === 'Escape') {
+      props.onHandleCloseModal();
+    }
+  };
+
   useEffect(() => {
     textInput.current.focus();
   });
@@ -13,7 +19,7 @@ export const Modal = props => {
     <div
       ref={textInput}
       className={style.overlay}
-      onKeyDown={props.onEscCloseModal}
+      onKeyDown={onEscCloseModal}
       tabIndex={5}
     >
       <div className={style.modal}>
