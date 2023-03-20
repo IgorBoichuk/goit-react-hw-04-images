@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import { useState } from 'react';
 import style from './style.module.css';
 
 export const Modal = props => {

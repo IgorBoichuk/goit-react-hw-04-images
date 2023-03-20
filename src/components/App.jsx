@@ -19,7 +19,7 @@ export const App = () => {
   const [error, setError] = useState(null);
   const [isQuery, setIsQuery] = useState('start');
   const [typeRequest, setTypeRequest] = useState('');
-  const [modalOpen, setModalOpen] = useState('close');
+  const [modalOpen, setModalOpen] = useState(false);
 
   const scroll = Scroll.animateScroll;
 
@@ -53,7 +53,7 @@ export const App = () => {
     if (loading) {
       getImageApi();
     }
-  }, [loading]);
+  }, [query, page]);
 
   const onSubmitForm = event => {
     setQuery(event);
@@ -70,14 +70,15 @@ export const App = () => {
   };
 
   const onPictureClick = img => {
-    setModalOpen('open');
+    setModalOpen(true);
+
     setLargeImg(img.target.src);
   };
 
   const onHandleCloseModal = e => {
-    if (modalOpen === 'open') {
+    if (modalOpen === true) {
       setLargeImg(null);
-      setModalOpen('closed');
+      setModalOpen(false);
     }
   };
 
@@ -91,7 +92,7 @@ export const App = () => {
 
       {error || (isQuery === 'badQuary' && <h1>Is bad query</h1>)}
 
-      {modalOpen === 'open' && (
+      {largeImg && (
         <Modal largeImg={largeImg} onHandleCloseModal={onHandleCloseModal} />
       )}
 
